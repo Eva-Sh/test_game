@@ -1,4 +1,5 @@
 import Player from './Player';
+import Actions from './Actions';
 
 export default class Game {
     constructor(canvasId='canvas', size={width: 1000, height:600}) {
@@ -9,6 +10,7 @@ export default class Game {
 
         this.canvas = canvas;
         this.context = canvas.getContext('2d');
+        this.input = null;
         this.bodies = new Set;
         this.loaded = false;
     }
@@ -24,10 +26,13 @@ export default class Game {
     }
 
     draw() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
         this.bodies.forEach(body => body.draw());
     }
 
     init() {
+        this.input = new Actions();
         this.load();
         this.update();
     }

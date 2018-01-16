@@ -5,5 +5,18 @@ export default class Player extends Template {
         initialPosition = initialPosition || { x: (game.canvas.width / 2) - (size.width / 2), y: game.canvas.height - 45 };
 
         super(game, size, initialPosition);
+
+        this.speed = 3;
+    }
+    update() {
+        let input = this.game.input;
+
+        if( input.isLeftPressed() && this.position.x > 0 ) {
+            this.position.x -= this.speed;
+        }
+
+        if( input.isRightPressed() && this.game.canvas.width > this.position.x + this.size.width ) {
+            this.position.x += this.speed;
+        }
     }
 }
