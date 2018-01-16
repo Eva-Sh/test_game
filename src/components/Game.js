@@ -24,6 +24,7 @@ export default class Game {
     update() {
         this.bodies.forEach(body => body.update());
         this.draw();
+        this.collectGarbage();
         window.requestAnimationFrame(this.update.bind(this));
     }
 
@@ -41,8 +42,6 @@ export default class Game {
 
     initPlayer() {
         this.addBody(new Player(this));//добавим игорка
-
-        console.log('Player added.');
     }
     initEnemy() {
         Enemy.enemiesLeft = 0;
@@ -59,5 +58,27 @@ export default class Game {
 
     addBody(body) {
         this.bodies.add(body);//добавляет объекты-тела
+    }
+
+    removeBody(body) {
+        this.bodies.delete(body);
+    }
+
+    collectGarbage() {
+        let canvas = this.canvas,
+            aliveBodies = new Set;
+
+        for(let body of this.bodies) {
+            if (
+                !(body.position.x < -10 ||
+                    body.position.x > canvas.width + 10 ||
+                    body.position.y < -10 ||
+                    body.position.y > canvas.height + 10)
+            ) {
+                aliveBodies.add(body);
+            }
+        }
+
+        this.bodies = aliveBodies;
     }
 }
