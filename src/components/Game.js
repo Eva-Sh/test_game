@@ -1,5 +1,6 @@
 import Player from './Player';
 import Actions from './Actions';
+import Enemy from './Enemy';
 
 export default class Game {
     constructor(canvasId='canvas', size={width: 1000, height:600}) {
@@ -17,6 +18,7 @@ export default class Game {
 
     load() {
         this.initPlayer();
+        this.initEnemy();
     }
 
     update() {
@@ -41,6 +43,18 @@ export default class Game {
         this.addBody(new Player(this));//добавим игорка
 
         console.log('Player added.');
+    }
+    initEnemy() {
+        Enemy.enemiesLeft = 0;
+
+        for(var i = 0; i < 55; i++ ) {
+            this.addBody(new Enemy(this, {
+                x: 50 + (i%11) * 30,
+                y: 50 + (i%5) * 30
+            }));
+
+            Enemy.enemiesLeft++;
+        }
     }
 
     addBody(body) {
