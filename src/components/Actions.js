@@ -25,4 +25,7 @@ export default class Actions {
     isRightPressed() {
         return this.currentKeys.get(RIGHT);
     }
+    isActionPressed() {
+        return this.currentKeys.get(SPACE);
+    }
 }
