@@ -2,12 +2,13 @@ import Template from './Template';
 import Shot from './Shot';
 
 export default class Enemy extends Template {
-    constructor(game, initialPosition, size = { width: 15, height: 15 }) {
+    constructor(game, initialPosition, size={width: 15, height: 15}) {
         super(game, size, initialPosition);
 
         this.patrolX = 0;
         this.speed = 3;
     }
+
     update() {
         if (this.patrolX < 0 || this.patrolX > 600) {
             this.speed = -this.speed;
@@ -20,6 +21,7 @@ export default class Enemy extends Template {
         this.position.x += this.speed;
         this.patrolX += this.speed;
     }
+
     alliedBellow() {
         let invader = this,
             alliesBellow = 0;
@@ -42,5 +44,19 @@ export default class Enemy extends Template {
             this.game,
             {x: this.position.x + this.size.width / 2, y: this.position.y + this.size.height + 5}
         ));
+    }
+
+    onDestroyed() {
+        let self = this.constructor;
+
+        if (--self.enemiesLeft <= 0) {
+            self.onDestroyedAll();
+        }
+
+        console.log(self.enemiesLeft);
+    }
+
+    static onDestroyedAll() {
+        window.alert('you won');
     }
 }

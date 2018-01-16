@@ -8,11 +8,19 @@ export default class Template {
     load() {
         //загрузка предметов тела
     }
+    collision() {
+        this.onDestroyed();
+
+        this.game.removeBody(this);
+    }
     update() {
         //отвечает за обновление экарана игры
     }
     draw() {
         this.game.context.fillRect(this.position.x, this.position.y, this.size.width, this.size.height);
         this.game.context.fillStyle = 'green';
+    }
+    onDestroyed() {
+
     }
 }

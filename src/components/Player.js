@@ -39,4 +39,7 @@ export default class Player extends Template {
             this.isFiring = false;
         }.bind(this), this.fireDelay);
     }
+    onDestroyed() {
+        window.alert('Game over!');
+    }
 }
