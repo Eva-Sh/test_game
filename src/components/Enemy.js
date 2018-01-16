@@ -7,4 +7,12 @@ export default class Enemy extends Template {
         this.patrolX = 0;
         this.speed = 3;
     }
+    update() {
+        if (this.patrolX < 0 || this.patrolX > 600) {
+            this.speed = -this.speed;
+        }
+
+        this.position.x += this.speed;
+        this.patrolX += this.speed;
+    }
 }
